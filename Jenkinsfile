@@ -21,7 +21,7 @@ pipeline {
           url: 'https://github.com/xkelvinx666/mda-backend-render'
         }
         dir(path: './template') {
-          git branch: 'master',
+          git branch: 'master'
           url: 'https://github.com/xkelvinx666/mda-template-backend'
         }
       }
@@ -38,13 +38,13 @@ pipeline {
     }
     stage('after-compile') {
       steps {
-        sh 'cd ./template && npm install &&  art ../template 1'
+        sh 'cd ./template && npm install && npm run build'
       }
     }
     stage('before-publish') {
        steps {
-        sh 'tar -czvf frontend.tar ./template/*'
-        archiveArtifacts 'frontend.tar'
+        sh 'tar -czvf backend.tar ./template/*'
+        archiveArtifacts 'backend.tar'
       }
     }
     stage('publish') {
@@ -66,7 +66,7 @@ pipeline {
                 remoteDirectory: 'template',
                 remoteDirectorySDF: false,
                 removePrefix: '',
-                sourceFiles: 'frontend.tar'
+                sourceFiles: 'backend.tar'
               )],
               usePromotionTimestamp: false,
               useWorkspaceInPromotion: false,
@@ -76,8 +76,8 @@ pipeline {
     }
     stage('after-publish') {
        steps {
-        sshCommand remote: remote, command: "cd ~/template && tar -xzvf frontend.tar && mv template frontend && rm frontend.tar"
-        sshCommand remote: remote, command: "cd ~/template/frontend && pm2 start npm -- run start"
+        sshCommand remote: remote, command: "cd ~/template && tar -xzvf backend.tar && mv template backend && rm backend.tar"
+        sshCommand remote: remote, command: "cd ~/template/backend && pm2 start npm -- run start"
       }
     }
   }
