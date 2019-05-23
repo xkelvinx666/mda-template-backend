@@ -28,12 +28,17 @@ pipeline {
     }
     stage('build') {
       steps {
-        sh 'cd ./render && npm install && npm run start:prod'
+        sh 'cd ./render && npm install && npm run build'
       }
     }
     stage('compile') {
       steps {
         sh 'cd ./render && npm run template art ../template 1'
+      }
+    }
+    stage('after-compile') {
+      steps {
+        sh 'cd ./template && npm install &&  art ../template 1'
       }
     }
     stage('before-publish') {
