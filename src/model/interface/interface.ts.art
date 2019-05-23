@@ -1,0 +1,5 @@
+export interface <%= $imports.capitalize(model.name) %>Interface {
+<% for(field of model.fields){ %>
+<%= field.name %>: <%= field.type %>
+<% } %>
+}

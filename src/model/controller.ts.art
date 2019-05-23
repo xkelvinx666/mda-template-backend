@@ -1,0 +1,22 @@
+<% const capitalizeName = $imports.capitalize(model.name); %>
+import { Controller } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, } from 'typeorm';
+import { <%= capitalizeName %> } from './entity';
+import { GlobalDto } from '../global/global.dto';
+import { CrudController } from '../global/crud.controller';
+import { GlobalParams } from '../global/global.params';
+
+@Controller('<%= model.name)')
+export class <%= capitalizeName =>Controller extends CrudController<
+  <%= capitalizeName =>,
+  GlobalDto,
+  GlobalParams
+> {
+  constructor(
+    @InjectRepository(<%= capitalizeName =>)
+    private readonly repository: Repository<capitalizeName>,
+  ) {
+    super(repository);
+  }
+}

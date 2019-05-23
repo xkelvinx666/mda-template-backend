@@ -1,0 +1,13 @@
+import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
+import { GlobalEntity } from '../global/global.entity';
+import { Model } from '../models/models.entity';
+
+@Entity()
+export class <%= $imports.capitalize(model.name) %> extends GlobalEntity {
+<% for(field of model.fields){ %>
+  @Column({
+    type: '<%= field.sqlType %>',
+  })
+<%= field.name %>: <%= field.type %>;
+<% } %>
+}

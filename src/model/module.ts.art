@@ -1,0 +1,11 @@
+<% const capitalizeName = $imports.capitalize(model.name); %>
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Controller } from './controller';
+import { <%= capitalizeName %> } from './entity';
+
+@Module({
+  imports: [TypeOrmModule.forFeature([<%= capitalizeName %>])],
+  controllers: [Controller],
+})
+export class <%= capitalizeName %>Module {}
