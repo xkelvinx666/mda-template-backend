@@ -22,7 +22,7 @@
   "dependencies": {
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
-    "@nestjs/platform-express": "^6.0.0",
+    "@nestjs/platform-express": "^6.11.11",
     "@nestjs/typeorm": "^6.0.0",
     "@types/lodash": "^4.14.123",
     "art-template": "^4.13.2",
